@@ -33,7 +33,19 @@ Public Class MathContest
     End Sub
 
     Private Sub GradeTextBox_TextChanged(sender As Object, e As EventArgs) Handles GradeTextBox.TextChanged
-        GradeVerified(GradeTextBox.Text)
+        Dim verfiedGrade As Boolean
+        If String.IsNullOrEmpty(GradeTextBox.Text) Then
+
+        Else
+            verfiedGrade = GradeVerified(GradeTextBox.Text)
+            'testing only
+            If verfiedGrade = True Then
+                MsgBox("Valid input")
+            ElseIf verfiedGrade = False Then
+                MsgBox("Invalid input")
+            End If
+        End If
+
     End Sub
 
     Function GradeVerified(grade As String) As Boolean
@@ -47,9 +59,10 @@ Public Class MathContest
             Return False
         End Try
 
-        If 1 <= integerGrade Or integerGrade <= 4 Then
-
-
+        If 1 <= integerGrade And integerGrade <= 4 Then
+            Return True
+        Else
+            Return False
         End If
 
     End Function
