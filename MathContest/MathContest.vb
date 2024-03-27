@@ -14,7 +14,7 @@ Public Class MathContest
     '[*] Verify Age is withing range
     '[] Get and track user name as a letter string
     '[] Display errors 
-    '[] Prevent submission until name, age, and grade are correct
+    '[*] Prevent submission until name, age, and grade are correct
     '[] Verify that user inputs are integers
     '[] require user submission for answer
     '[] complete operation specified by radio buttons
@@ -31,10 +31,19 @@ Public Class MathContest
         AgeTextBox.Text = ""
         SubmitButton.Enabled = False
         SummaryButton.Enabled = False
+        FirstNumberTextBox.Enabled = False
+        SecondNumberTextBox.Enabled = False
     End Sub
 
     Private Sub ClearButton_Click(sender As Object, e As EventArgs) Handles ClearButton.Click
-        ' AgeTextBox.Enabled = False
+        NameTextBox.Enabled = True
+        AgeTextBox.Enabled = True
+        GradeTextBox.Enabled = True
+        GradeTextBox.Text = ""
+        NameTextBox.Text = ""
+        AgeTextBox.Text = ""
+        FirstNumberTextBox.Text = ""
+        SecondNumberTextBox.Text = ""
     End Sub
     Private Sub NameTextBox_TextChanged(sender As Object, e As EventArgs) Handles NameTextBox.TextChanged
         SubmitButton.Enabled = MasterVerfication()
@@ -100,5 +109,53 @@ Public Class MathContest
             Return False
         End If
     End Function
+
+    Private Sub SubmitButton_Click(sender As Object, e As EventArgs) Handles SubmitButton.Click
+        'Disable user from changing their name, age, and grade until they clear
+        NameTextBox.Enabled = False
+        AgeTextBox.Enabled = False
+        GradeTextBox.Enabled = False
+        FirstNumberTextBox.Text = CStr(IntegerGenerator())
+        SecondNumberTextBox.Text = CStr(IntegerGenerator())
+
+        'If SameName(NameTextBox.Text) = True Then
+
+        'End If
+    End Sub
+
+    'save for later
+    'Function SameName(name As String) As Boolean
+    '    Static priorName As String
+    '    If priorName = name Then
+    '        Return True
+    '    Else
+    '        Return False
+    '    End If
+    'End Function
+
+    'Save for later 
+    'Function ValidIntegers() As Boolean
+    '    Dim firstInteger As Integer
+    '    Dim secondInteger As Integer
+
+    '    If String.IsNullOrEmpty(FirstNumberTextBox.Text) Then
+    '        Return False
+    '    Else
+    '        Try
+
+    '        Catch ex As Exception
+
+    '        End Try
+    '    End If
+    'End Function
+
+    Function IntegerGenerator() As Integer
+        Dim randomInteger As Integer
+        Randomize()
+        randomInteger = CInt(Rnd() * 10)
+        Return randomInteger
+    End Function
+
+
 
 End Class
