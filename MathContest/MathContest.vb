@@ -45,15 +45,15 @@ Public Class MathContest
         FirstNumberTextBox.Text = ""
         SecondNumberTextBox.Text = ""
     End Sub
-    Private Sub NameTextBox_TextChanged(sender As Object, e As EventArgs) Handles NameTextBox.TextChanged
+    Private Sub NameTextBox_TextChanged(sender As Object, e As EventArgs) Handles NameTextBox.Leave
         SubmitButton.Enabled = MasterVerfication()
     End Sub
 
-    Private Sub GradeTextBox_TextChanged(sender As Object, e As EventArgs) Handles GradeTextBox.TextChanged
+    Private Sub GradeTextBox_TextChanged(sender As Object, e As EventArgs) Handles GradeTextBox.Leave
         SubmitButton.Enabled = MasterVerfication()
 
     End Sub
-    Private Sub AgeTextBox_TextChanged(sender As Object, e As EventArgs) Handles AgeTextBox.TextChanged
+    Private Sub AgeTextBox_TextChanged(sender As Object, e As EventArgs) Handles AgeTextBox.Leave
         SubmitButton.Enabled = MasterVerfication()
     End Sub
 
@@ -179,16 +179,9 @@ Public Class MathContest
     End Function
 
     Function DoOperationCompare() As Boolean
-        'Dim addition As Boolean
-        'Dim subtraction As Boolean
-        'Dim multiplication As Boolean
-        'Dim division As Boolean
+
         Dim math As Integer
 
-        'addition = AdditionRadioButton.Enabled
-        'subtraction = SubtractionRadioButton.Enabled
-        'multiplication = MultiplyRadioButton.Enabled
-        'division = DivideRadioButton.Enabled
 
         If AdditionRadioButton.Checked = True Then
             math = CInt(FirstNumberTextBox.Text) + CInt(SecondNumberTextBox.Text)
