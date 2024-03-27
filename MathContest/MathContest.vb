@@ -179,12 +179,38 @@ Public Class MathContest
     End Function
 
     Function DoOperationCompare() As Boolean
-        Dim addition As Boolean
-        Dim subtraction As Boolean
-        Dim multiplication As Boolean
-        Dim division As Boolean
+        'Dim addition As Boolean
+        'Dim subtraction As Boolean
+        'Dim multiplication As Boolean
+        'Dim division As Boolean
+        Dim math As Integer
+
+        'addition = AdditionRadioButton.Enabled
+        'subtraction = SubtractionRadioButton.Enabled
+        'multiplication = MultiplyRadioButton.Enabled
+        'division = DivideRadioButton.Enabled
+
+        If AdditionRadioButton.Checked = True Then
+            math = CInt(FirstNumberTextBox.Text) + CInt(SecondNumberTextBox.Text)
+
+        ElseIf SubtractionRadioButton.Checked = True Then
+            math = CInt(FirstNumberTextBox.Text) - CInt(SecondNumberTextBox.Text)
+
+        ElseIf MultiplyRadioButton.Checked = True Then
+            math = CInt(FirstNumberTextBox.Text) * CInt(SecondNumberTextBox.Text)
+        ElseIf SubtractionRadioButton.Checked = True Then
+            math = CInt(FirstNumberTextBox.Text) \ CInt(SecondNumberTextBox.Text)
 
 
+
+        End If
+
+        If math = CInt(StudentAnswerTextBox.Text) Then
+            Return True
+        Else
+            Return False
+
+        End If
 
 
     End Function
