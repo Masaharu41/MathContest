@@ -115,9 +115,15 @@ Public Class MathContest
         NameTextBox.Enabled = False
         AgeTextBox.Enabled = False
         GradeTextBox.Enabled = False
-        If SameName(NameTextBox.Text) = True Then
+        'Has Error fix code sequence
+        'Should not regenerate the numbers when the valid answer is false but needs
+        'to generate at least once when the submit button is true.
+        If SameName(NameTextBox.Text) = True And ValidAnswer() = True Then
             FirstNumberTextBox.Text = CStr(IntegerGenerator())
             SecondNumberTextBox.Text = CStr(IntegerGenerator())
+
+        ElseIf ValidAnswer() = False Then
+            MsgBox("Please Enter a valid Answer")
         Else
 
         End If
@@ -139,22 +145,6 @@ Public Class MathContest
             Return False
         End If
     End Function
-
-    'Save for later 
-    'Function ValidIntegers() As Boolean
-    '    Dim firstInteger As Integer
-    '    Dim secondInteger As Integer
-
-    '    If String.IsNullOrEmpty(FirstNumberTextBox.Text) Then
-    '        Return False
-    '    Else
-    '        Try
-
-    '        Catch ex As Exception
-
-    '        End Try
-    '    End If
-    'End Function
 
     Function IntegerGenerator() As Integer
         Dim randomInteger As Integer
@@ -194,15 +184,12 @@ Public Class MathContest
         ElseIf SubtractionRadioButton.Checked = True Then
             math = CInt(FirstNumberTextBox.Text) \ CInt(SecondNumberTextBox.Text)
 
-
-
         End If
 
         If math = CInt(StudentAnswerTextBox.Text) Then
             Return True
         Else
             Return False
-
         End If
 
 
