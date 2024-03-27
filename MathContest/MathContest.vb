@@ -29,20 +29,23 @@ Public Class MathContest
         GradeTextBox.Text = ""
         NameTextBox.Text = ""
         AgeTextBox.Text = ""
+        SubmitButton.Enabled = False
 
     End Sub
 
     Private Sub GradeTextBox_TextChanged(sender As Object, e As EventArgs) Handles GradeTextBox.TextChanged
         Dim verfiedGrade As Boolean
         If String.IsNullOrEmpty(GradeTextBox.Text) Then
-
+            SubmitButton.Enabled = False
         Else
             verfiedGrade = GradeVerified(GradeTextBox.Text)
-            'testing only
+            'Msg for testing purposes only
             If verfiedGrade = True Then
-                MsgBox("Valid input")
+                SubmitButton.Enabled = True
+                ' MsgBox("Valid input")
             ElseIf verfiedGrade = False Then
-                MsgBox("Invalid input")
+                SubmitButton.Enabled = False
+                ' MsgBox("Invalid input")
             End If
         End If
 
@@ -72,6 +75,35 @@ Public Class MathContest
     End Sub
 
     Private Sub AgeTextBox_TextChanged(sender As Object, e As EventArgs) Handles AgeTextBox.TextChanged
-
+        Dim verfiedAge As Boolean
+        If String.IsNullOrEmpty(AgeTextBox.Text) Then
+            SubmitButton.Enabled = False
+        Else
+            verfiedAge = AgeVerified(AgeTextBox.Text)
+            If verfiedAge = True Then
+                SubmitButton.Enabled = verfiedAge
+            ElseIf verfiedAge = False Then
+                SubmitButton.Enabled = False
+            End If
+        End If
     End Sub
+
+    Function AgeVerified(age As String) As Boolean
+        Dim integerAge As Integer
+
+        Try
+            integerAge = CInt(AgeTextBox.Text)
+        Catch ex As Exception
+            'testing purpose only write to log file later
+            MsgBox("Age Must be a Integer!")
+            Return False
+        End Try
+
+        If 7 <= integerAge And integerAge <= 11 Then
+            Return True
+        Else
+            Return False
+        End If
+
+    End Function
 End Class
