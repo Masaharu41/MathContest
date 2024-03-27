@@ -10,8 +10,8 @@ Option Explicit On
 
 Public Class MathContest
     'TODO
-    '[] Verify Grade is within range
-    '[] Verify Age is withing range
+    '[*] Verify Grade is within range
+    '[*] Verify Age is withing range
     '[] Get and track user name as a letter string
     '[] Display errors 
     '[] Prevent submission until name, age, and grade are correct
@@ -30,35 +30,34 @@ Public Class MathContest
         NameTextBox.Text = ""
         AgeTextBox.Text = ""
         SubmitButton.Enabled = False
+        SummaryButton.Enabled = False
+    End Sub
 
+    Private Sub ClearButton_Click(sender As Object, e As EventArgs) Handles ClearButton.Click
+        ' AgeTextBox.Enabled = False
+    End Sub
+    Private Sub NameTextBox_TextChanged(sender As Object, e As EventArgs) Handles NameTextBox.TextChanged
+        SubmitButton.Enabled = MasterVerfication()
     End Sub
 
     Private Sub GradeTextBox_TextChanged(sender As Object, e As EventArgs) Handles GradeTextBox.TextChanged
-        Dim verfiedGrade As Boolean
-        If String.IsNullOrEmpty(GradeTextBox.Text) Then
-            SubmitButton.Enabled = False
-        Else
-            verfiedGrade = GradeVerified(GradeTextBox.Text)
-            'Msg for testing purposes only
-            If verfiedGrade = True Then
-                SubmitButton.Enabled = True
-                ' MsgBox("Valid input")
-            ElseIf verfiedGrade = False Then
-                SubmitButton.Enabled = False
-                ' MsgBox("Invalid input")
-            End If
-        End If
+        SubmitButton.Enabled = MasterVerfication()
 
     End Sub
+    Private Sub AgeTextBox_TextChanged(sender As Object, e As EventArgs) Handles AgeTextBox.TextChanged
+        SubmitButton.Enabled = MasterVerfication()
+    End Sub
+
 
     Function GradeVerified(grade As String) As Boolean
+        'verifies grade is first an integer and then checks that it is within range
         Dim integerGrade As Integer
 
         Try
             integerGrade = CInt(GradeTextBox.Text)
         Catch ex As Exception
             'testing purpose only write to log file later
-            MsgBox("Grade Must be a Integer!")
+            ' MsgBox("Grade Must be a Integer!")
             Return False
         End Try
 
@@ -70,32 +69,15 @@ Public Class MathContest
 
     End Function
 
-    Private Sub NameTextBox_TextChanged(sender As Object, e As EventArgs) Handles NameTextBox.TextChanged
-
-    End Sub
-
-    Private Sub AgeTextBox_TextChanged(sender As Object, e As EventArgs) Handles AgeTextBox.TextChanged
-        Dim verfiedAge As Boolean
-        If String.IsNullOrEmpty(AgeTextBox.Text) Then
-            SubmitButton.Enabled = False
-        Else
-            verfiedAge = AgeVerified(AgeTextBox.Text)
-            If verfiedAge = True Then
-                SubmitButton.Enabled = verfiedAge
-            ElseIf verfiedAge = False Then
-                SubmitButton.Enabled = False
-            End If
-        End If
-    End Sub
-
     Function AgeVerified(age As String) As Boolean
+        'verifies that age is an integer and within range 
         Dim integerAge As Integer
 
         Try
             integerAge = CInt(AgeTextBox.Text)
         Catch ex As Exception
             'testing purpose only write to log file later
-            MsgBox("Age Must be a Integer!")
+            '  MsgBox("Age Must be a Integer!")
             Return False
         End Try
 
@@ -106,4 +88,17 @@ Public Class MathContest
         End If
 
     End Function
+    Function MasterVerfication() As Boolean
+        'this verifies that the student has input a name 
+        Dim nameIsLetters As Boolean
+        nameIsLetters = System.Text.RegularExpressions.Regex.IsMatch(NameTextBox.Text, "^[A-Za-z]+$")
+        If String.IsNullOrEmpty(NameTextBox.Text) Or String.IsNullOrEmpty(AgeTextBox.Text) Or String.IsNullOrEmpty(GradeTextBox.Text) Then
+            Return False
+        ElseIf AgeVerified(AgeTextBox.Text) = True And GradeVerified(GradeTextBox.Text) = True And nameIsLetters = True Then
+            Return True
+        Else
+            Return False
+        End If
+    End Function
+
 End Class
