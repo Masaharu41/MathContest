@@ -22,6 +22,7 @@ Partial Class MathContest
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Me.NameTextBox = New System.Windows.Forms.TextBox()
         Me.AgeTextBox = New System.Windows.Forms.TextBox()
         Me.GradeTextBox = New System.Windows.Forms.TextBox()
@@ -46,6 +47,7 @@ Partial Class MathContest
         Me.InformationGroupBox = New System.Windows.Forms.GroupBox()
         Me.ButtonsGroupBox = New System.Windows.Forms.GroupBox()
         Me.UserInputsGroupBox = New System.Windows.Forms.GroupBox()
+        Me.MathContestTooltip = New System.Windows.Forms.ToolTip(Me.components)
         Me.OperationsGroupBox.SuspendLayout()
         Me.InformationGroupBox.SuspendLayout()
         Me.ButtonsGroupBox.SuspendLayout()
@@ -58,20 +60,23 @@ Partial Class MathContest
         Me.NameTextBox.Name = "NameTextBox"
         Me.NameTextBox.Size = New System.Drawing.Size(203, 31)
         Me.NameTextBox.TabIndex = 0
+        Me.MathContestTooltip.SetToolTip(Me.NameTextBox, "Enter the student's name here")
         '
         'AgeTextBox
         '
         Me.AgeTextBox.Location = New System.Drawing.Point(255, 59)
         Me.AgeTextBox.Name = "AgeTextBox"
-        Me.AgeTextBox.Size = New System.Drawing.Size(39, 31)
+        Me.AgeTextBox.Size = New System.Drawing.Size(55, 31)
         Me.AgeTextBox.TabIndex = 1
+        Me.MathContestTooltip.SetToolTip(Me.AgeTextBox, "Students can only be 7 to 11 years old")
         '
         'GradeTextBox
         '
         Me.GradeTextBox.Location = New System.Drawing.Point(327, 59)
         Me.GradeTextBox.Name = "GradeTextBox"
-        Me.GradeTextBox.Size = New System.Drawing.Size(39, 31)
+        Me.GradeTextBox.Size = New System.Drawing.Size(66, 31)
         Me.GradeTextBox.TabIndex = 2
+        Me.MathContestTooltip.SetToolTip(Me.GradeTextBox, "Students can only be in grades 1-4")
         '
         'FirstNumberTextBox
         '
@@ -79,6 +84,7 @@ Partial Class MathContest
         Me.FirstNumberTextBox.Name = "FirstNumberTextBox"
         Me.FirstNumberTextBox.Size = New System.Drawing.Size(203, 31)
         Me.FirstNumberTextBox.TabIndex = 3
+        Me.MathContestTooltip.SetToolTip(Me.FirstNumberTextBox, "Input your First number here")
         '
         'SecondNumberTextBox
         '
@@ -86,6 +92,7 @@ Partial Class MathContest
         Me.SecondNumberTextBox.Name = "SecondNumberTextBox"
         Me.SecondNumberTextBox.Size = New System.Drawing.Size(203, 31)
         Me.SecondNumberTextBox.TabIndex = 4
+        Me.MathContestTooltip.SetToolTip(Me.SecondNumberTextBox, "Input your Second number here")
         '
         'StudentAnswerTextBox
         '
@@ -93,6 +100,7 @@ Partial Class MathContest
         Me.StudentAnswerTextBox.Name = "StudentAnswerTextBox"
         Me.StudentAnswerTextBox.Size = New System.Drawing.Size(203, 31)
         Me.StudentAnswerTextBox.TabIndex = 5
+        Me.MathContestTooltip.SetToolTip(Me.StudentAnswerTextBox, "Input your answer to the problem")
         '
         'AdditionRadioButton
         '
@@ -145,6 +153,7 @@ Partial Class MathContest
         Me.SubmitButton.Size = New System.Drawing.Size(179, 85)
         Me.SubmitButton.TabIndex = 10
         Me.SubmitButton.Text = "&Submit"
+        Me.MathContestTooltip.SetToolTip(Me.SubmitButton, "To compete you must put the correct grade and age")
         Me.SubmitButton.UseVisualStyleBackColor = True
         '
         'ClearButton
@@ -222,6 +231,7 @@ Partial Class MathContest
         Me.OperationsGroupBox.TabIndex = 18
         Me.OperationsGroupBox.TabStop = False
         Me.OperationsGroupBox.Text = "Math Operations"
+        Me.MathContestTooltip.SetToolTip(Me.OperationsGroupBox, "Select your math operation here." & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Only one may be selected at anytime")
         '
         'AgeLabel
         '
@@ -329,4 +339,5 @@ Partial Class MathContest
     Friend WithEvents InformationGroupBox As GroupBox
     Friend WithEvents ButtonsGroupBox As GroupBox
     Friend WithEvents UserInputsGroupBox As GroupBox
+    Friend WithEvents MathContestTooltip As ToolTip
 End Class
