@@ -115,8 +115,13 @@ Public Class MathContest
         NameTextBox.Enabled = False
         AgeTextBox.Enabled = False
         GradeTextBox.Enabled = False
-        FirstNumberTextBox.Text = CStr(IntegerGenerator())
-        SecondNumberTextBox.Text = CStr(IntegerGenerator())
+        If SameName(NameTextBox.Text) = True Then
+            FirstNumberTextBox.Text = CStr(IntegerGenerator())
+            SecondNumberTextBox.Text = CStr(IntegerGenerator())
+        Else
+
+        End If
+
 
         'If SameName(NameTextBox.Text) = True Then
 
@@ -124,14 +129,16 @@ Public Class MathContest
     End Sub
 
     'save for later
-    'Function SameName(name As String) As Boolean
-    '    Static priorName As String
-    '    If priorName = name Then
-    '        Return True
-    '    Else
-    '        Return False
-    '    End If
-    'End Function
+    Function SameName(name As String) As Boolean
+        Static priorName As String
+        If priorName = name Then
+            Return True
+
+        Else
+            priorName = name
+            Return False
+        End If
+    End Function
 
     'Save for later 
     'Function ValidIntegers() As Boolean
@@ -152,10 +159,34 @@ Public Class MathContest
     Function IntegerGenerator() As Integer
         Dim randomInteger As Integer
         Randomize()
-        randomInteger = CInt(Rnd() * 10)
+        randomInteger = CInt((Rnd() * 10) * (Rnd() * 10))
         Return randomInteger
     End Function
 
+    Function ValidAnswer() As Boolean
+        Dim userAsInteger As Integer
+        If String.IsNullOrEmpty(StudentAnswerTextBox.Text) Then
+            Return False
+        Else
+            Try
+                userAsInteger = CInt(StudentAnswerTextBox.Text)
+                Return True
+            Catch ex As Exception
+                Return False
+            End Try
+        End If
 
+    End Function
+
+    Function DoOperationCompare() As Boolean
+        Dim addition As Boolean
+        Dim subtraction As Boolean
+        Dim multiplication As Boolean
+        Dim division As Boolean
+
+
+
+
+    End Function
 
 End Class
