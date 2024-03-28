@@ -111,9 +111,7 @@ Public Class MathContest
     End Function
 
     Private Sub SubmitButton_Click(sender As Object, e As EventArgs) Handles SubmitButton.Click
-        ' Dim runCount As Integer
-        'Dim rightCount As Integer
-        'Disable user from changing their name, age, and grade until they clear
+        Static multipleFails As Integer
         NameTextBox.Enabled = False
         AgeTextBox.Enabled = False
         GradeTextBox.Enabled = False
@@ -123,14 +121,21 @@ Public Class MathContest
         If SameName(NameTextBox.Text) = True And ValidAnswer() = True Then
 
             ResultsCounter(False)
-
+            FirstNumberTextBox.Text = CStr(IntegerGenerator())
+            SecondNumberTextBox.Text = CStr(IntegerGenerator())
+            multipleFails = 0
         ElseIf ValidAnswer() = False Then
             MsgBox("Please Enter a valid Answer")
-        Else
+            If multipleFails < 1 = True Then
+
+                FirstNumberTextBox.Text = CStr(IntegerGenerator())
+                SecondNumberTextBox.Text = CStr(IntegerGenerator())
+            Else
+
+            End If
+            multipleFails = multipleFails + 1
 
         End If
-        FirstNumberTextBox.Text = CStr(IntegerGenerator())
-        SecondNumberTextBox.Text = CStr(IntegerGenerator())
 
 
         'If SameName(NameTextBox.Text) = True Then
@@ -217,6 +222,8 @@ Public Class MathContest
         Else
 
             MsgBox($"You got {rightCount} answers right out of {runCount}")
+            runCount = 0
+            rightCount = 0
 
         End If
 
