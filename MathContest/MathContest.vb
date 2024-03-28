@@ -42,8 +42,8 @@ Public Class MathContest
         GradeTextBox.Text = ""
         NameTextBox.Text = ""
         AgeTextBox.Text = ""
-        FirstNumberTextBox.Text = ""
-        SecondNumberTextBox.Text = ""
+        'FirstNumberTextBox.Text = ""
+        'SecondNumberTextBox.Text = ""
     End Sub
     Private Sub NameTextBox_TextChanged(sender As Object, e As EventArgs) Handles NameTextBox.Leave
         SubmitButton.Enabled = MasterVerfication()
@@ -112,6 +112,7 @@ Public Class MathContest
 
     Private Sub SubmitButton_Click(sender As Object, e As EventArgs) Handles SubmitButton.Click
         Static multipleFails As Integer
+        MasterVerfication()
         NameTextBox.Enabled = False
         AgeTextBox.Enabled = False
         GradeTextBox.Enabled = False
@@ -120,12 +121,12 @@ Public Class MathContest
         'to generate at least once when the submit button is true.
         If SameName(NameTextBox.Text) = True And ValidAnswer() = True Then
 
-            ResultsCounter(False)
+            ResultsCounter("1")
             FirstNumberTextBox.Text = CStr(IntegerGenerator())
             SecondNumberTextBox.Text = CStr(IntegerGenerator())
             multipleFails = 0
         ElseIf ValidAnswer() = False Then
-            MsgBox("Please Enter a valid Answer")
+            'MsgBox("Please Enter a valid Answer")
             If multipleFails < 1 = True Then
 
                 FirstNumberTextBox.Text = CStr(IntegerGenerator())
@@ -137,21 +138,23 @@ Public Class MathContest
 
         End If
 
-
-        'If SameName(NameTextBox.Text) = True Then
-
-        'End If
     End Sub
 
-    'save for later
     Function SameName(name As String) As Boolean
         Static priorName As String
+        Static runs As Integer
         If priorName = name Then
             Return True
 
         Else
             priorName = name
-            Return False
+            runs = runs + 1
+            If runs < 1 = True Then
+                Return False
+            Else
+                ' ResultsCounter(True)
+                Return False
+            End If
         End If
     End Function
 
@@ -204,32 +207,36 @@ Public Class MathContest
 
     End Function
 
-    Sub ResultsCounter(display As Boolean)
+    Function ResultsCounter(display As String) As Boolean
         Static runCount As Integer
         Static rightCount As Integer
 
 
-        If display = False Then
+        If display = "1" Then
             If DoOperationCompare() = True Then
                 runCount = runCount + 1
-                rightCount = runCount + 1
+                rightCount = rightCount + 1
                 If runCount > 1 = True Then
                     SummaryButton.Enabled = True
                 End If
             Else
                 runCount = runCount + 1
             End If
-        Else
-
-            MsgBox($"You got {rightCount} answers right out of {runCount}")
+        ElseIf display = "2" Then
+            MsgBox($"You got {rightCount} answers out of {runCount} right")
+        ElseIf display = "3" Then
+            MsgBox($"You got {rightCount} answers out of {runCount} right")
             runCount = 0
             rightCount = 0
-
         End If
 
-    End Sub
+    End Function
 
     Private Sub SummaryButton_Click(sender As Object, e As EventArgs) Handles SummaryButton.Click
-        ResultsCounter(True)
+        If SameName(NameTextBox.Text) = True Then
+            ResultsCounter("2")
+        Else
+            ResultsCounter("3")
+        End If
     End Sub
 End Class
