@@ -15,11 +15,11 @@ Public Class MathContest
     '[] Get and track user name as a letter string
     '[] Display errors 
     '[*] Prevent submission until name, age, and grade are correct
-    '[] Verify that user inputs are integers
-    '[] require user submission for answer
-    '[] complete operation specified by radio buttons
-    '[] compare the user input to operation output
-    '[] track how many times user has submitted and had the correct answer
+    '[*] Verify that user inputs are integers
+    '[*] require user submission for answer
+    '[*] complete operation specified by radio buttons
+    '[*] compare the user input to operation output
+    '[*] track how many times user has submitted and had the correct answer
     '[] create as user trackable answer sheet that can be displayed but is erased once the name is changed
     Private Sub ExitButton_Click(sender As Object, e As EventArgs) Handles ExitButton.Click
         Me.Close()
@@ -30,7 +30,7 @@ Public Class MathContest
         NameTextBox.Text = ""
         AgeTextBox.Text = ""
         SubmitButton.Enabled = False
-        SummaryButton.Enabled = False
+        SummaryButton.Enabled = True
         FirstNumberTextBox.Enabled = False
         SecondNumberTextBox.Enabled = False
     End Sub
@@ -111,35 +111,91 @@ Public Class MathContest
     End Function
 
     Private Sub SubmitButton_Click(sender As Object, e As EventArgs) Handles SubmitButton.Click
+        SubmitButton.Enabled = MasterVerfication()
+        SubmitLogic(True)
+        'Static multipleFails As Integer
+        'Static submitCount As Integer
+        'NameTextBox.Enabled = False
+        'AgeTextBox.Enabled = False
+        'GradeTextBox.Enabled = False
+        ''Has Error fix code sequence
+        ''Should not regenerate the numbers when the valid answer is false but needs
+        ''to generate at least once when the submit button is true.
+
+        'If ValidAnswer() = True Then
+        '    submitCount = submitCount + 1
+        '    If submitCount = 1 = True Then
+        '        SameName(NameTextBox.Text)
+        '        ResultsCounter("1")
+        '        FirstNumberTextBox.Text = CStr(IntegerGenerator())
+        '        SecondNumberTextBox.Text = CStr(IntegerGenerator())
+        '        multipleFails = 0
+        '    Else
+
+        '        ResultsCounter("1")
+        '        FirstNumberTextBox.Text = CStr(IntegerGenerator())
+        '        SecondNumberTextBox.Text = CStr(IntegerGenerator())
+        '        multipleFails = 0
+        '    End If
+
+        'ElseIf ValidAnswer() = False Then
+        '        'MsgBox("Please Enter a valid Answer")
+        '        If multipleFails < 1 = True Then
+
+        '        FirstNumberTextBox.Text = CStr(IntegerGenerator())
+        '        SecondNumberTextBox.Text = CStr(IntegerGenerator())
+        '    Else
+
+        '    End If
+        '    multipleFails = multipleFails + 1
+
+        'End If
+
+    End Sub
+
+    Sub SubmitLogic(reset As Boolean)
         Static multipleFails As Integer
-        MasterVerfication()
+        Static submitCount As Integer
         NameTextBox.Enabled = False
         AgeTextBox.Enabled = False
         GradeTextBox.Enabled = False
         'Has Error fix code sequence
         'Should not regenerate the numbers when the valid answer is false but needs
         'to generate at least once when the submit button is true.
-        If SameName(NameTextBox.Text) = True And ValidAnswer() = True Then
+        If reset = True Then
+            If ValidAnswer() = True Then
+                submitCount = submitCount + 1
+                If submitCount = 1 = True Then
+                    SameName(NameTextBox.Text)
+                    ResultsCounter("1")
+                    FirstNumberTextBox.Text = CStr(IntegerGenerator())
+                    SecondNumberTextBox.Text = CStr(IntegerGenerator())
+                    multipleFails = 0
+                Else
 
-            ResultsCounter("1")
-            FirstNumberTextBox.Text = CStr(IntegerGenerator())
-            SecondNumberTextBox.Text = CStr(IntegerGenerator())
-            multipleFails = 0
-        ElseIf ValidAnswer() = False Then
-            'MsgBox("Please Enter a valid Answer")
-            If multipleFails < 1 = True Then
+                    ResultsCounter("1")
+                    FirstNumberTextBox.Text = CStr(IntegerGenerator())
+                    SecondNumberTextBox.Text = CStr(IntegerGenerator())
+                    multipleFails = 0
+                End If
 
-                FirstNumberTextBox.Text = CStr(IntegerGenerator())
-                SecondNumberTextBox.Text = CStr(IntegerGenerator())
-            Else
+            ElseIf ValidAnswer() = False Then
+                'MsgBox("Please Enter a valid Answer")
+                If multipleFails < 1 = True Then
+
+                    FirstNumberTextBox.Text = CStr(IntegerGenerator())
+                    SecondNumberTextBox.Text = CStr(IntegerGenerator())
+                Else
+
+                End If
+                multipleFails = multipleFails + 1
 
             End If
-            multipleFails = multipleFails + 1
-
+        Else
+            submitCount = 0
         End If
 
     End Sub
-
     Function SameName(name As String) As Boolean
         Static priorName As String
         Static runs As Integer
@@ -152,7 +208,7 @@ Public Class MathContest
             If runs < 1 = True Then
                 Return False
             Else
-                ' ResultsCounter(True)
+
                 Return False
             End If
         End If
@@ -207,7 +263,7 @@ Public Class MathContest
 
     End Function
 
-    Function ResultsCounter(display As String) As Boolean
+    Sub ResultsCounter(display As String)
         Static runCount As Integer
         Static rightCount As Integer
 
@@ -230,13 +286,14 @@ Public Class MathContest
             rightCount = 0
         End If
 
-    End Function
+    End Sub
 
     Private Sub SummaryButton_Click(sender As Object, e As EventArgs) Handles SummaryButton.Click
         If SameName(NameTextBox.Text) = True Then
             ResultsCounter("2")
         Else
             ResultsCounter("3")
+            SubmitLogic(False)
         End If
     End Sub
 End Class
