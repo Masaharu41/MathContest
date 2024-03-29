@@ -29,6 +29,8 @@ Public Class MathContest
         GradeTextBox.Enabled = True
         SubmitButton.Enabled = False
         SummaryButton.Enabled = False
+        AdditionRadioButton.Checked = True
+        OperationsGroupBox.Enabled = False
         GradeTextBox.Text = ""
         NameTextBox.Text = ""
         AgeTextBox.Text = ""
@@ -57,8 +59,17 @@ Public Class MathContest
 
     Private Sub GradeTextBox_TextChanged(sender As Object, e As EventArgs) Handles GradeTextBox.Leave
         SubmitButton.Enabled = MasterVerfication()
-
     End Sub
+    Private Sub SummaryButton_Click(sender As Object, e As EventArgs) Handles SummaryButton.Click
+        ResultsCounter("2")
+    End Sub
+
+    Private Sub SubmitButton_Click(sender As Object, e As EventArgs) Handles SubmitButton.Click,
+        SubmitButton.Enabled = MasterVerfication()
+        OperationsGroupBox.Enabled = MasterVerfication()
+        SubmitLogic()
+    End Sub
+
     Private Sub AgeTextBox_TextChanged(sender As Object, e As EventArgs) Handles AgeTextBox.Leave
         SubmitButton.Enabled = MasterVerfication()
     End Sub
@@ -114,12 +125,6 @@ Public Class MathContest
             Return False
         End If
     End Function
-
-    Private Sub SubmitButton_Click(sender As Object, e As EventArgs) Handles SubmitButton.Click
-        SubmitButton.Enabled = MasterVerfication()
-        SubmitLogic()
-
-    End Sub
 
     Sub SubmitLogic()
         Static multipleFails As Integer
@@ -223,7 +228,4 @@ Public Class MathContest
 
     End Sub
 
-    Private Sub SummaryButton_Click(sender As Object, e As EventArgs) Handles SummaryButton.Click
-        ResultsCounter("2")
-    End Sub
 End Class

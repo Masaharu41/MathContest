@@ -59,7 +59,7 @@ Partial Class MathContest
         Me.NameTextBox.Location = New System.Drawing.Point(7, 59)
         Me.NameTextBox.Name = "NameTextBox"
         Me.NameTextBox.Size = New System.Drawing.Size(203, 31)
-        Me.NameTextBox.TabIndex = 0
+        Me.NameTextBox.TabIndex = 1
         Me.MathContestTooltip.SetToolTip(Me.NameTextBox, "Enter the student's name here")
         '
         'AgeTextBox
@@ -67,7 +67,7 @@ Partial Class MathContest
         Me.AgeTextBox.Location = New System.Drawing.Point(255, 59)
         Me.AgeTextBox.Name = "AgeTextBox"
         Me.AgeTextBox.Size = New System.Drawing.Size(55, 31)
-        Me.AgeTextBox.TabIndex = 1
+        Me.AgeTextBox.TabIndex = 2
         Me.MathContestTooltip.SetToolTip(Me.AgeTextBox, "Students can only be 7 to 11 years old")
         '
         'GradeTextBox
@@ -75,23 +75,27 @@ Partial Class MathContest
         Me.GradeTextBox.Location = New System.Drawing.Point(327, 59)
         Me.GradeTextBox.Name = "GradeTextBox"
         Me.GradeTextBox.Size = New System.Drawing.Size(66, 31)
-        Me.GradeTextBox.TabIndex = 2
+        Me.GradeTextBox.TabIndex = 3
         Me.MathContestTooltip.SetToolTip(Me.GradeTextBox, "Students can only be in grades 1-4")
         '
         'FirstNumberTextBox
         '
+        Me.FirstNumberTextBox.Enabled = False
         Me.FirstNumberTextBox.Location = New System.Drawing.Point(18, 79)
         Me.FirstNumberTextBox.Name = "FirstNumberTextBox"
         Me.FirstNumberTextBox.Size = New System.Drawing.Size(203, 31)
         Me.FirstNumberTextBox.TabIndex = 3
+        Me.FirstNumberTextBox.TabStop = False
         Me.MathContestTooltip.SetToolTip(Me.FirstNumberTextBox, "Input your First number here")
         '
         'SecondNumberTextBox
         '
+        Me.SecondNumberTextBox.Enabled = False
         Me.SecondNumberTextBox.Location = New System.Drawing.Point(18, 162)
         Me.SecondNumberTextBox.Name = "SecondNumberTextBox"
         Me.SecondNumberTextBox.Size = New System.Drawing.Size(203, 31)
         Me.SecondNumberTextBox.TabIndex = 4
+        Me.SecondNumberTextBox.TabStop = False
         Me.MathContestTooltip.SetToolTip(Me.SecondNumberTextBox, "Input your Second number here")
         '
         'StudentAnswerTextBox
@@ -99,8 +103,8 @@ Partial Class MathContest
         Me.StudentAnswerTextBox.Location = New System.Drawing.Point(18, 244)
         Me.StudentAnswerTextBox.Name = "StudentAnswerTextBox"
         Me.StudentAnswerTextBox.Size = New System.Drawing.Size(203, 31)
-        Me.StudentAnswerTextBox.TabIndex = 5
-        Me.MathContestTooltip.SetToolTip(Me.StudentAnswerTextBox, "Input your answer to the problem")
+        Me.StudentAnswerTextBox.TabIndex = 1
+        Me.MathContestTooltip.SetToolTip(Me.StudentAnswerTextBox, "Input your answer to the problem" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Round to nearest 3 decimal places")
         '
         'AdditionRadioButton
         '
@@ -108,9 +112,10 @@ Partial Class MathContest
         Me.AdditionRadioButton.Location = New System.Drawing.Point(43, 60)
         Me.AdditionRadioButton.Name = "AdditionRadioButton"
         Me.AdditionRadioButton.Size = New System.Drawing.Size(121, 29)
-        Me.AdditionRadioButton.TabIndex = 6
+        Me.AdditionRadioButton.TabIndex = 1
         Me.AdditionRadioButton.TabStop = True
         Me.AdditionRadioButton.Text = "Addition"
+        Me.MathContestTooltip.SetToolTip(Me.AdditionRadioButton, "Adds Numbers 1 and 2")
         Me.AdditionRadioButton.UseVisualStyleBackColor = True
         '
         'SubtractionRadioButton
@@ -119,9 +124,10 @@ Partial Class MathContest
         Me.SubtractionRadioButton.Location = New System.Drawing.Point(42, 95)
         Me.SubtractionRadioButton.Name = "SubtractionRadioButton"
         Me.SubtractionRadioButton.Size = New System.Drawing.Size(152, 29)
-        Me.SubtractionRadioButton.TabIndex = 7
+        Me.SubtractionRadioButton.TabIndex = 2
         Me.SubtractionRadioButton.TabStop = True
         Me.SubtractionRadioButton.Text = "Subtraction"
+        Me.MathContestTooltip.SetToolTip(Me.SubtractionRadioButton, "Subtracts Numbers 1 and 2")
         Me.SubtractionRadioButton.UseVisualStyleBackColor = True
         '
         'MultiplyRadioButton
@@ -130,20 +136,22 @@ Partial Class MathContest
         Me.MultiplyRadioButton.Location = New System.Drawing.Point(42, 130)
         Me.MultiplyRadioButton.Name = "MultiplyRadioButton"
         Me.MultiplyRadioButton.Size = New System.Drawing.Size(169, 29)
-        Me.MultiplyRadioButton.TabIndex = 8
+        Me.MultiplyRadioButton.TabIndex = 3
         Me.MultiplyRadioButton.TabStop = True
         Me.MultiplyRadioButton.Text = "Multiplication"
+        Me.MathContestTooltip.SetToolTip(Me.MultiplyRadioButton, "Multiplies Numbers 1 and 2")
         Me.MultiplyRadioButton.UseVisualStyleBackColor = True
         '
         'DivideRadioButton
         '
         Me.DivideRadioButton.AutoSize = True
-        Me.DivideRadioButton.Location = New System.Drawing.Point(42, 165)
+        Me.DivideRadioButton.Location = New System.Drawing.Point(43, 165)
         Me.DivideRadioButton.Name = "DivideRadioButton"
         Me.DivideRadioButton.Size = New System.Drawing.Size(119, 29)
-        Me.DivideRadioButton.TabIndex = 9
+        Me.DivideRadioButton.TabIndex = 4
         Me.DivideRadioButton.TabStop = True
         Me.DivideRadioButton.Text = "Division"
+        Me.MathContestTooltip.SetToolTip(Me.DivideRadioButton, "Division Numbers 1 and 2")
         Me.DivideRadioButton.UseVisualStyleBackColor = True
         '
         'SubmitButton
@@ -151,7 +159,7 @@ Partial Class MathContest
         Me.SubmitButton.Location = New System.Drawing.Point(11, 30)
         Me.SubmitButton.Name = "SubmitButton"
         Me.SubmitButton.Size = New System.Drawing.Size(179, 85)
-        Me.SubmitButton.TabIndex = 10
+        Me.SubmitButton.TabIndex = 1
         Me.SubmitButton.Text = "&Submit"
         Me.MathContestTooltip.SetToolTip(Me.SubmitButton, "To compete you must put the correct grade and age")
         Me.SubmitButton.UseVisualStyleBackColor = True
@@ -161,7 +169,7 @@ Partial Class MathContest
         Me.ClearButton.Location = New System.Drawing.Point(11, 121)
         Me.ClearButton.Name = "ClearButton"
         Me.ClearButton.Size = New System.Drawing.Size(179, 85)
-        Me.ClearButton.TabIndex = 11
+        Me.ClearButton.TabIndex = 2
         Me.ClearButton.Text = "C&lear"
         Me.ClearButton.UseVisualStyleBackColor = True
         '
@@ -170,7 +178,7 @@ Partial Class MathContest
         Me.SummaryButton.Location = New System.Drawing.Point(11, 212)
         Me.SummaryButton.Name = "SummaryButton"
         Me.SummaryButton.Size = New System.Drawing.Size(179, 85)
-        Me.SummaryButton.TabIndex = 12
+        Me.SummaryButton.TabIndex = 3
         Me.SummaryButton.Text = "Su&mmary"
         Me.SummaryButton.UseVisualStyleBackColor = True
         '
@@ -179,7 +187,7 @@ Partial Class MathContest
         Me.ExitButton.Location = New System.Drawing.Point(11, 303)
         Me.ExitButton.Name = "ExitButton"
         Me.ExitButton.Size = New System.Drawing.Size(179, 85)
-        Me.ExitButton.TabIndex = 13
+        Me.ExitButton.TabIndex = 4
         Me.ExitButton.Text = "&Exit"
         Me.ExitButton.UseVisualStyleBackColor = True
         '
@@ -228,10 +236,11 @@ Partial Class MathContest
         Me.OperationsGroupBox.Location = New System.Drawing.Point(337, 147)
         Me.OperationsGroupBox.Name = "OperationsGroupBox"
         Me.OperationsGroupBox.Size = New System.Drawing.Size(267, 235)
-        Me.OperationsGroupBox.TabIndex = 18
+        Me.OperationsGroupBox.TabIndex = 3
         Me.OperationsGroupBox.TabStop = False
         Me.OperationsGroupBox.Text = "Math Operations"
-        Me.MathContestTooltip.SetToolTip(Me.OperationsGroupBox, "Select your math operation here." & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Only one may be selected at anytime")
+        Me.MathContestTooltip.SetToolTip(Me.OperationsGroupBox, "Select your math operation here." & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Only one may be selected at anytime" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Is availab" &
+        "le once numbers have been" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "generated")
         '
         'AgeLabel
         '
@@ -262,7 +271,7 @@ Partial Class MathContest
         Me.InformationGroupBox.Location = New System.Drawing.Point(61, 34)
         Me.InformationGroupBox.Name = "InformationGroupBox"
         Me.InformationGroupBox.Size = New System.Drawing.Size(602, 107)
-        Me.InformationGroupBox.TabIndex = 21
+        Me.InformationGroupBox.TabIndex = 1
         Me.InformationGroupBox.TabStop = False
         Me.InformationGroupBox.Text = "Student Information"
         '
@@ -275,7 +284,7 @@ Partial Class MathContest
         Me.ButtonsGroupBox.Location = New System.Drawing.Point(716, 34)
         Me.ButtonsGroupBox.Name = "ButtonsGroupBox"
         Me.ButtonsGroupBox.Size = New System.Drawing.Size(219, 407)
-        Me.ButtonsGroupBox.TabIndex = 22
+        Me.ButtonsGroupBox.TabIndex = 4
         Me.ButtonsGroupBox.TabStop = False
         '
         'UserInputsGroupBox
@@ -289,7 +298,7 @@ Partial Class MathContest
         Me.UserInputsGroupBox.Location = New System.Drawing.Point(61, 147)
         Me.UserInputsGroupBox.Name = "UserInputsGroupBox"
         Me.UserInputsGroupBox.Size = New System.Drawing.Size(250, 304)
-        Me.UserInputsGroupBox.TabIndex = 23
+        Me.UserInputsGroupBox.TabIndex = 2
         Me.UserInputsGroupBox.TabStop = False
         Me.UserInputsGroupBox.Text = "Current Math Problem"
         '
