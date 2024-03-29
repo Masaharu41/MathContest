@@ -304,8 +304,10 @@ Partial Class MathContest
         '
         'MathContest
         '
+        Me.AcceptButton = Me.SubmitButton
         Me.AutoScaleDimensions = New System.Drawing.SizeF(12.0!, 25.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.CancelButton = Me.ClearButton
         Me.ClientSize = New System.Drawing.Size(1182, 589)
         Me.Controls.Add(Me.UserInputsGroupBox)
         Me.Controls.Add(Me.ButtonsGroupBox)

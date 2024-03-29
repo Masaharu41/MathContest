@@ -64,7 +64,7 @@ Public Class MathContest
         ResultsCounter("2")
     End Sub
 
-    Private Sub SubmitButton_Click(sender As Object, e As EventArgs) Handles SubmitButton.Click,
+    Private Sub SubmitButton_Click(sender As Object, e As EventArgs) Handles SubmitButton.Click
         SubmitButton.Enabled = MasterVerfication()
         OperationsGroupBox.Enabled = MasterVerfication()
         SubmitLogic()
