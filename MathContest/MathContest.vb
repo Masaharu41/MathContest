@@ -24,13 +24,17 @@ Public Class MathContest
     End Sub
 
     Private Sub Loader(sender As Object, e As EventArgs) Handles Me.Load
+        NameTextBox.Enabled = True
+        AgeTextBox.Enabled = True
+        GradeTextBox.Enabled = True
+        SubmitButton.Enabled = False
+        SummaryButton.Enabled = False
         GradeTextBox.Text = ""
         NameTextBox.Text = ""
         AgeTextBox.Text = ""
-        SubmitButton.Enabled = False
-        SummaryButton.Enabled = False
-        FirstNumberTextBox.Enabled = False
-        SecondNumberTextBox.Enabled = False
+        FirstNumberTextBox.Text = ""
+        SecondNumberTextBox.Text = ""
+        StudentAnswerTextBox.Text = ""
     End Sub
 
     Private Sub ClearButton_Click(sender As Object, e As EventArgs) Handles ClearButton.Click
@@ -38,11 +42,14 @@ Public Class MathContest
         AgeTextBox.Enabled = True
         GradeTextBox.Enabled = True
         SubmitButton.Enabled = False
+        SummaryButton.Enabled = False
         GradeTextBox.Text = ""
         NameTextBox.Text = ""
         AgeTextBox.Text = ""
         FirstNumberTextBox.Text = ""
         SecondNumberTextBox.Text = ""
+        StudentAnswerTextBox.Text = ""
+        ResultsCounter("3")
     End Sub
     Private Sub NameTextBox_TextChanged(sender As Object, e As EventArgs) Handles NameTextBox.Leave
         SubmitButton.Enabled = MasterVerfication()
@@ -84,8 +91,7 @@ Public Class MathContest
         Try
             integerAge = CInt(AgeTextBox.Text)
         Catch ex As Exception
-            'testing purpose only write to log file later
-            '  MsgBox("Age Must be a Integer!")
+
             Return False
         End Try
 
@@ -121,9 +127,7 @@ Public Class MathContest
         NameTextBox.Enabled = False
         AgeTextBox.Enabled = False
         GradeTextBox.Enabled = False
-        'Has Error fix code sequence
-        'Should not regenerate the numbers when the valid answer is false but needs
-        'to generate at least once when the submit button is true.
+
 
         If ValidAnswer() = True Then
             ResultsCounter("1")
@@ -131,12 +135,12 @@ Public Class MathContest
             SecondNumberTextBox.Text = CStr(IntegerGenerator())
             multipleFails = 0
         ElseIf ValidAnswer() = False Then
-            'MsgBox("Your answer cannot be empty and must be an integer")
             If multipleFails < 1 = True Then
 
                 FirstNumberTextBox.Text = CStr(IntegerGenerator())
                 SecondNumberTextBox.Text = CStr(IntegerGenerator())
             Else
+                MsgBox("Your answer cannot be empty and must be an integer")
 
             End If
             multipleFails = multipleFails + 1
@@ -153,12 +157,12 @@ Public Class MathContest
     End Function
 
     Function ValidAnswer() As Boolean
-        Dim userAsInteger As Integer
+        Dim userAsInteger As Double
         If String.IsNullOrEmpty(StudentAnswerTextBox.Text) Then
             Return False
         Else
             Try
-                userAsInteger = CInt(StudentAnswerTextBox.Text)
+                userAsInteger = CDbl(StudentAnswerTextBox.Text)
                 Return True
             Catch ex As Exception
                 Return False
@@ -169,23 +173,23 @@ Public Class MathContest
 
     Function DoOperationCompare() As Boolean
 
-        Dim math As Integer
+        Dim mathOp As Double
 
 
         If AdditionRadioButton.Checked = True Then
-            math = CInt(FirstNumberTextBox.Text) + CInt(SecondNumberTextBox.Text)
+            mathOp = CInt(FirstNumberTextBox.Text) + CInt(SecondNumberTextBox.Text)
 
         ElseIf SubtractionRadioButton.Checked = True Then
-            math = CInt(FirstNumberTextBox.Text) - CInt(SecondNumberTextBox.Text)
+            mathOp = CInt(FirstNumberTextBox.Text) - CInt(SecondNumberTextBox.Text)
 
         ElseIf MultiplyRadioButton.Checked = True Then
-            math = CInt(FirstNumberTextBox.Text) * CInt(SecondNumberTextBox.Text)
-        ElseIf SubtractionRadioButton.Checked = True Then
-            math = CInt(FirstNumberTextBox.Text) \ CInt(SecondNumberTextBox.Text)
+            mathOp = CDbl(FirstNumberTextBox.Text) * CDbl(SecondNumberTextBox.Text)
+        ElseIf DivideRadioButton.Checked = True Then
+            mathOp = CDbl(FirstNumberTextBox.Text) / CDbl(SecondNumberTextBox.Text)
 
         End If
-
-        If math = CInt(StudentAnswerTextBox.Text) Then
+        mathOp = Math.Round(mathOp, 3)
+        If mathOp = CDbl(StudentAnswerTextBox.Text) Then
             Return True
         Else
             Return False
@@ -194,22 +198,23 @@ Public Class MathContest
 
     End Function
 
-    Sub ResultsCounter(reset As Boolean)
+    Sub ResultsCounter(display As String)
         Static runCount As Integer
         Static rightCount As Integer
 
-
-        If reset = False Then
+        If display = "1" Then
             If DoOperationCompare() = True Then
                 runCount = runCount + 1
                 rightCount = rightCount + 1
-                If runCount > 1 = True Then
+                If runCount >= 1 = True Then
                     SummaryButton.Enabled = True
                 End If
             Else
                 runCount = runCount + 1
             End If
-        ElseIf reset = True Then
+        ElseIf display = "2" Then
+            MsgBox($"You got {rightCount} answers out of {runCount} right")
+        Else
             MsgBox($"You got {rightCount} answers out of {runCount} right")
             runCount = 0
             rightCount = 0
@@ -219,6 +224,6 @@ Public Class MathContest
     End Sub
 
     Private Sub SummaryButton_Click(sender As Object, e As EventArgs) Handles SummaryButton.Click
-        ResultsCounter(True)
+        ResultsCounter("2")
     End Sub
 End Class
