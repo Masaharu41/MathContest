@@ -12,15 +12,13 @@ Public Class MathContest
     'TODO
     '[*] Verify Grade is within range
     '[*] Verify Age is withing range
-    '[] Get and track user name as a letter string
-    '[] Display errors 
     '[*] Prevent submission until name, age, and grade are correct
     '[*] Verify that user inputs are integers
     '[*] require user submission for answer
     '[*] complete operation specified by radio buttons
     '[*] compare the user input to operation output
     '[*] track how many times user has submitted and had the correct answer
-    '[] create as user trackable answer sheet that can be displayed but is erased once the name is changed
+
     Private Sub ExitButton_Click(sender As Object, e As EventArgs) Handles ExitButton.Click
         Me.Close()
     End Sub
@@ -30,7 +28,7 @@ Public Class MathContest
         NameTextBox.Text = ""
         AgeTextBox.Text = ""
         SubmitButton.Enabled = False
-        SummaryButton.Enabled = True
+        SummaryButton.Enabled = False
         FirstNumberTextBox.Enabled = False
         SecondNumberTextBox.Enabled = False
     End Sub
@@ -39,11 +37,12 @@ Public Class MathContest
         NameTextBox.Enabled = True
         AgeTextBox.Enabled = True
         GradeTextBox.Enabled = True
+        SubmitButton.Enabled = False
         GradeTextBox.Text = ""
         NameTextBox.Text = ""
         AgeTextBox.Text = ""
-        'FirstNumberTextBox.Text = ""
-        'SecondNumberTextBox.Text = ""
+        FirstNumberTextBox.Text = ""
+        SecondNumberTextBox.Text = ""
     End Sub
     Private Sub NameTextBox_TextChanged(sender As Object, e As EventArgs) Handles NameTextBox.Leave
         SubmitButton.Enabled = MasterVerfication()
@@ -112,107 +111,39 @@ Public Class MathContest
 
     Private Sub SubmitButton_Click(sender As Object, e As EventArgs) Handles SubmitButton.Click
         SubmitButton.Enabled = MasterVerfication()
-        SubmitLogic(True)
-        'Static multipleFails As Integer
-        'Static submitCount As Integer
-        'NameTextBox.Enabled = False
-        'AgeTextBox.Enabled = False
-        'GradeTextBox.Enabled = False
-        ''Has Error fix code sequence
-        ''Should not regenerate the numbers when the valid answer is false but needs
-        ''to generate at least once when the submit button is true.
-
-        'If ValidAnswer() = True Then
-        '    submitCount = submitCount + 1
-        '    If submitCount = 1 = True Then
-        '        SameName(NameTextBox.Text)
-        '        ResultsCounter("1")
-        '        FirstNumberTextBox.Text = CStr(IntegerGenerator())
-        '        SecondNumberTextBox.Text = CStr(IntegerGenerator())
-        '        multipleFails = 0
-        '    Else
-
-        '        ResultsCounter("1")
-        '        FirstNumberTextBox.Text = CStr(IntegerGenerator())
-        '        SecondNumberTextBox.Text = CStr(IntegerGenerator())
-        '        multipleFails = 0
-        '    End If
-
-        'ElseIf ValidAnswer() = False Then
-        '        'MsgBox("Please Enter a valid Answer")
-        '        If multipleFails < 1 = True Then
-
-        '        FirstNumberTextBox.Text = CStr(IntegerGenerator())
-        '        SecondNumberTextBox.Text = CStr(IntegerGenerator())
-        '    Else
-
-        '    End If
-        '    multipleFails = multipleFails + 1
-
-        'End If
+        SubmitLogic()
 
     End Sub
 
-    Sub SubmitLogic(reset As Boolean)
+    Sub SubmitLogic()
         Static multipleFails As Integer
-        Static submitCount As Integer
+
         NameTextBox.Enabled = False
         AgeTextBox.Enabled = False
         GradeTextBox.Enabled = False
         'Has Error fix code sequence
         'Should not regenerate the numbers when the valid answer is false but needs
         'to generate at least once when the submit button is true.
-        If reset = True Then
-            If ValidAnswer() = True Then
-                submitCount = submitCount + 1
-                If submitCount = 1 = True Then
-                    SameName(NameTextBox.Text)
-                    ResultsCounter("1")
-                    FirstNumberTextBox.Text = CStr(IntegerGenerator())
-                    SecondNumberTextBox.Text = CStr(IntegerGenerator())
-                    multipleFails = 0
-                Else
 
-                    ResultsCounter("1")
-                    FirstNumberTextBox.Text = CStr(IntegerGenerator())
-                    SecondNumberTextBox.Text = CStr(IntegerGenerator())
-                    multipleFails = 0
-                End If
+        If ValidAnswer() = True Then
+            ResultsCounter("1")
+            FirstNumberTextBox.Text = CStr(IntegerGenerator())
+            SecondNumberTextBox.Text = CStr(IntegerGenerator())
+            multipleFails = 0
+        ElseIf ValidAnswer() = False Then
+            'MsgBox("Your answer cannot be empty and must be an integer")
+            If multipleFails < 1 = True Then
 
-            ElseIf ValidAnswer() = False Then
-                'MsgBox("Please Enter a valid Answer")
-                If multipleFails < 1 = True Then
-
-                    FirstNumberTextBox.Text = CStr(IntegerGenerator())
-                    SecondNumberTextBox.Text = CStr(IntegerGenerator())
-                Else
-
-                End If
-                multipleFails = multipleFails + 1
+                FirstNumberTextBox.Text = CStr(IntegerGenerator())
+                SecondNumberTextBox.Text = CStr(IntegerGenerator())
+            Else
 
             End If
-        Else
-            submitCount = 0
+            multipleFails = multipleFails + 1
+
         End If
 
     End Sub
-    Function SameName(name As String) As Boolean
-        Static priorName As String
-        Static runs As Integer
-        If priorName = name Then
-            Return True
-
-        Else
-            priorName = name
-            runs = runs + 1
-            If runs < 1 = True Then
-                Return False
-            Else
-
-                Return False
-            End If
-        End If
-    End Function
 
     Function IntegerGenerator() As Integer
         Dim randomInteger As Integer
@@ -263,12 +194,12 @@ Public Class MathContest
 
     End Function
 
-    Sub ResultsCounter(display As String)
+    Sub ResultsCounter(reset As Boolean)
         Static runCount As Integer
         Static rightCount As Integer
 
 
-        If display = "1" Then
+        If reset = False Then
             If DoOperationCompare() = True Then
                 runCount = runCount + 1
                 rightCount = rightCount + 1
@@ -278,22 +209,16 @@ Public Class MathContest
             Else
                 runCount = runCount + 1
             End If
-        ElseIf display = "2" Then
-            MsgBox($"You got {rightCount} answers out of {runCount} right")
-        ElseIf display = "3" Then
+        ElseIf reset = True Then
             MsgBox($"You got {rightCount} answers out of {runCount} right")
             runCount = 0
             rightCount = 0
+
         End If
 
     End Sub
 
     Private Sub SummaryButton_Click(sender As Object, e As EventArgs) Handles SummaryButton.Click
-        If SameName(NameTextBox.Text) = True Then
-            ResultsCounter("2")
-        Else
-            ResultsCounter("3")
-            SubmitLogic(False)
-        End If
+        ResultsCounter(True)
     End Sub
 End Class
